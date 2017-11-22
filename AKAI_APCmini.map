@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ArdourMIDIBindings version="1.0.0" name="AKAI APC mini">
+<!-- 2017-11-17 Albert Gräf (aggraef@gmail.com) -->
+
+<!--
+
+This requires the accompanying Pd patch which implements most of actual MIDI
+mapping. The Pd patch wants to be connected to Ardour on Pd's MIDI I/O port #2
+and to the APCMini on port #3, so your Pd setup needs to provide at least 3
+pairs of MIDI inputs and outputs.
+
+This was originally based on the Novation Launch Control XL map by Alois
+Cochard, but has since taken on a life of its own. The faders do what you'd
+expect them to and the three button rows at the bottom are used for
+solo/mute/rec (they will also light up in the corresponding colors when
+engaged). The remaining 5x8 grid on the top can be used for note input
+(available separately on Pd's first MIDI output).
+
+The special buttons below the grid are used to select banks and tracks and
+switch the target controls between gain, pan and sends of the current bank,
+and devices (a.k.a. plugins) on the current track. The "SOFT KEYS" in the
+strip of scene launch buttons on the right are put to some good use as
+transport controls, and the three scene launch buttons at the bottom are used
+to switch between different sends and plugins.
+
+Special features:
+
+- SHIFT + any of the buttons in the 8x8 grid can be used to toggle switches in
+the plugin controls (controls 1-8 depending on the column, row is ignored so
+you can use whichever row you find most convenient)
+
+- SHIFT + send/plugin buttons select a 2nd bank of sends/plugins (4-6).
+
+- SHIFT + VOLUME selects VCA gain (if present)
+
+- SHIFT + PAN selects pan width (rather than pan direction)
+
+- SHIFT + DEVICE selects a 2nd bank of plugin controls (9-16).
+
+- SELECT (in the SOFT KEYS strip) engages a special mode in which the faders
+are mapped to a reserved MIDI channel (#16 in the current implementation)
+which is *not* used in this map, so that the controllers can be freely
+assigned using Ardour's MIDI learn facility. This can also be combined with
+SHIFT+SELECT to give a 2nd bank of freely assignable controllers.
+
+A closer description of this map and setup instructions can be found in the
+accompanying documentation.
+
+-->
+
+<DeviceInfo bank-size="8" motorized="yes"/>
+
+<!-- transport -->
+
+<Binding channel="1" note="82" function="transport-stop"/> <!-- stop -->
+<Binding channel="1" note="83" function="transport-roll"/> <!-- play -->
+<Binding channel="1" note="84" function="toggle-rec-enable"/> <!-- record -->
+<Binding channel="1" note="85" function="loop-toggle"/> <!-- loop -->
+
+<!-- prev/next bank and track -->
+
+<Binding channel="1" note="64" function="prev-bank"/>
+<Binding channel="1" note="65" function="next-bank"/>
+<Binding channel="1" note="66" action="Editor/select-prev-route"/>
+<Binding channel="1" note="67" action="Editor/select-next-route"/>
+
+<!-- master bus controls -->
+
+<!-- PAN = pandirection, SHIFT+PAN = panwidth -->
+
+<Binding channel="1" ctl="56"  uri="/bus/gain master"/>
+<Binding channel="2" ctl="56"  uri="/bus/pandirection master"/>
+<Binding channel="2" ctl="66"  uri="/bus/panwidth master"/>
+<Binding channel="3" ctl="56"  uri="/bus/send/gain master 1"/>
+<Binding channel="4" ctl="56"  uri="/bus/send/gain master 2"/>
+<Binding channel="5" ctl="56"  uri="/bus/send/gain master 3"/>
+<Binding channel="6" ctl="56"  uri="/bus/send/gain master 4"/>
+<Binding channel="7" ctl="56"  uri="/bus/send/gain master 5"/>
+<Binding channel="8" ctl="56"  uri="/bus/send/gain master 6"/>
+
+<!-- current bank track controls: solo/mute/record -->
+
+<Binding channel="1" note="0"  uri="/route/solo B1"/>
+<Binding channel="1" note="1"  uri="/route/solo B2"/>
+<Binding channel="1" note="2"  uri="/route/solo B3"/>
+<Binding channel="1" note="3"  uri="/route/solo B4"/>
+<Binding channel="1" note="4"  uri="/route/solo B5"/>
+<Binding channel="1" note="5"  uri="/route/solo B6"/>
+<Binding channel="1" note="6"  uri="/route/solo B7"/>
+<Binding channel="1" note="7"  uri="/route/solo B8"/>
+
+<Binding channel="1" note="8"  uri="/route/mute B1"/>
+<Binding channel="1" note="9"  uri="/route/mute B2"/>
+<Binding channel="1" note="10"  uri="/route/mute B3"/>
+<Binding channel="1" note="11"  uri="/route/mute B4"/>
+<Binding channel="1" note="12"  uri="/route/mute B5"/>
+<Binding channel="1" note="13"  uri="/route/mute B6"/>
+<Binding channel="1" note="14"  uri="/route/mute B7"/>
+<Binding channel="1" note="15"  uri="/route/mute B8"/>
+
+<Binding channel="1" note="16"  uri="/route/recenable B1"/>
+<Binding channel="1" note="17"  uri="/route/recenable B2"/>
+<Binding channel="1" note="18"  uri="/route/recenable B3"/>
+<Binding channel="1" note="19"  uri="/route/recenable B4"/>
+<Binding channel="1" note="20"  uri="/route/recenable B5"/>
+<Binding channel="1" note="21"  uri="/route/recenable B6"/>
+<Binding channel="1" note="22"  uri="/route/recenable B7"/>
+<Binding channel="1" note="23"  uri="/route/recenable B8"/>
+
+<!-- current bank track controls: VOLUME/PAN => gain/pan -->
+
+<!-- VOLUME = /route/gain, SHIFT+VOLUME = /vca/gain;
+     PAN = pandirection, SHIFT+PAN = panwidth -->
+
+<Binding channel="1" ctl="48"  uri="/route/gain B1"/>
+<Binding channel="1" ctl="49"  uri="/route/gain B2"/>
+<Binding channel="1" ctl="50"  uri="/route/gain B3"/>
+<Binding channel="1" ctl="51"  uri="/route/gain B4"/>
+<Binding channel="1" ctl="52"  uri="/route/gain B5"/>
+<Binding channel="1" ctl="53"  uri="/route/gain B6"/>
+<Binding channel="1" ctl="54"  uri="/route/gain B7"/>
+<Binding channel="1" ctl="55"  uri="/route/gain B8"/>
+
+<Binding channel="1" ctl="58"  uri="/vca/gain B1"/>
+<Binding channel="1" ctl="59"  uri="/vca/gain B2"/>
+<Binding channel="1" ctl="60"  uri="/vca/gain B3"/>
+<Binding channel="1" ctl="61"  uri="/vca/gain B4"/>
+<Binding channel="1" ctl="62"  uri="/vca/gain B5"/>
+<Binding channel="1" ctl="63"  uri="/vca/gain B6"/>
+<Binding channel="1" ctl="64"  uri="/vca/gain B7"/>
+<Binding channel="1" ctl="65"  uri="/vca/gain B8"/>
+
+<Binding channel="2" ctl="48"  uri="/route/pandirection B1"/>
+<Binding channel="2" ctl="49"  uri="/route/pandirection B2"/>
+<Binding channel="2" ctl="50"  uri="/route/pandirection B3"/>
+<Binding channel="2" ctl="51"  uri="/route/pandirection B4"/>
+<Binding channel="2" ctl="52"  uri="/route/pandirection B5"/>
+<Binding channel="2" ctl="53"  uri="/route/pandirection B6"/>
+<Binding channel="2" ctl="54"  uri="/route/pandirection B7"/>
+<Binding channel="2" ctl="55"  uri="/route/pandirection B8"/>
+
+<Binding channel="2" ctl="58"  uri="/route/panwidth B1"/>
+<Binding channel="2" ctl="59"  uri="/route/panwidth B2"/>
+<Binding channel="2" ctl="60"  uri="/route/panwidth B3"/>
+<Binding channel="2" ctl="61"  uri="/route/panwidth B4"/>
+<Binding channel="2" ctl="62"  uri="/route/panwidth B5"/>
+<Binding channel="2" ctl="63"  uri="/route/panwidth B6"/>
+<Binding channel="2" ctl="64"  uri="/route/panwidth B7"/>
+<Binding channel="2" ctl="65"  uri="/route/panwidth B8"/>
+
+<!-- current bank track controls: SEND => sends 1-6 -->
+
+<Binding channel="3" ctl="48"  uri="/route/send/gain B1 1"/>
+<Binding channel="3" ctl="49"  uri="/route/send/gain B2 1"/>
+<Binding channel="3" ctl="50"  uri="/route/send/gain B3 1"/>
+<Binding channel="3" ctl="51"  uri="/route/send/gain B4 1"/>
+<Binding channel="3" ctl="52"  uri="/route/send/gain B5 1"/>
+<Binding channel="3" ctl="53"  uri="/route/send/gain B6 1"/>
+<Binding channel="3" ctl="54"  uri="/route/send/gain B7 1"/>
+<Binding channel="3" ctl="55"  uri="/route/send/gain B8 1"/>
+
+<Binding channel="4" ctl="48"  uri="/route/send/gain B1 2"/>
+<Binding channel="4" ctl="49"  uri="/route/send/gain B2 2"/>
+<Binding channel="4" ctl="50"  uri="/route/send/gain B3 2"/>
+<Binding channel="4" ctl="51"  uri="/route/send/gain B4 2"/>
+<Binding channel="4" ctl="52"  uri="/route/send/gain B5 2"/>
+<Binding channel="4" ctl="53"  uri="/route/send/gain B6 2"/>
+<Binding channel="4" ctl="54"  uri="/route/send/gain B7 2"/>
+<Binding channel="4" ctl="55"  uri="/route/send/gain B8 2"/>
+
+<Binding channel="5" ctl="48"  uri="/route/send/gain B1 3"/>
+<Binding channel="5" ctl="49"  uri="/route/send/gain B2 3"/>
+<Binding channel="5" ctl="50"  uri="/route/send/gain B3 3"/>
+<Binding channel="5" ctl="51"  uri="/route/send/gain B4 3"/>
+<Binding channel="5" ctl="52"  uri="/route/send/gain B5 3"/>
+<Binding channel="5" ctl="53"  uri="/route/send/gain B6 3"/>
+<Binding channel="5" ctl="54"  uri="/route/send/gain B7 3"/>
+<Binding channel="5" ctl="55"  uri="/route/send/gain B8 3"/>
+
+<Binding channel="6" ctl="48"  uri="/route/send/gain B1 4"/>
+<Binding channel="6" ctl="49"  uri="/route/send/gain B2 4"/>
+<Binding channel="6" ctl="50"  uri="/route/send/gain B3 4"/>
+<Binding channel="6" ctl="51"  uri="/route/send/gain B4 4"/>
+<Binding channel="6" ctl="52"  uri="/route/send/gain B5 4"/>
+<Binding channel="6" ctl="53"  uri="/route/send/gain B6 4"/>
+<Binding channel="6" ctl="54"  uri="/route/send/gain B7 4"/>
+<Binding channel="6" ctl="55"  uri="/route/send/gain B8 4"/>
+
+<Binding channel="7" ctl="48"  uri="/route/send/gain B1 5"/>
+<Binding channel="7" ctl="49"  uri="/route/send/gain B2 5"/>
+<Binding channel="7" ctl="50"  uri="/route/send/gain B3 5"/>
+<Binding channel="7" ctl="51"  uri="/route/send/gain B4 5"/>
+<Binding channel="7" ctl="52"  uri="/route/send/gain B5 5"/>
+<Binding channel="7" ctl="53"  uri="/route/send/gain B6 5"/>
+<Binding channel="7" ctl="54"  uri="/route/send/gain B7 5"/>
+<Binding channel="7" ctl="55"  uri="/route/send/gain B8 5"/>
+
+<Binding channel="8" ctl="48"  uri="/route/send/gain B1 6"/>
+<Binding channel="8" ctl="49"  uri="/route/send/gain B2 6"/>
+<Binding channel="8" ctl="50"  uri="/route/send/gain B3 6"/>
+<Binding channel="8" ctl="51"  uri="/route/send/gain B4 6"/>
+<Binding channel="8" ctl="52"  uri="/route/send/gain B5 6"/>
+<Binding channel="8" ctl="53"  uri="/route/send/gain B6 6"/>
+<Binding channel="8" ctl="54"  uri="/route/send/gain B7 6"/>
+<Binding channel="8" ctl="55"  uri="/route/send/gain B8 6"/>
+
+<!-- current track controls: DEVICE => plugins 1-6 -->
+
+<!-- DEVICE = controls 1-8, SHIFT+DEVICE = controls 9-16 -->
+
+<Binding channel="9" ctl="48"  uri="/route/plugin/parameter S1 1 1"/>
+<Binding channel="9" ctl="49"  uri="/route/plugin/parameter S1 1 2"/>
+<Binding channel="9" ctl="50"  uri="/route/plugin/parameter S1 1 3"/>
+<Binding channel="9" ctl="51"  uri="/route/plugin/parameter S1 1 4"/>
+<Binding channel="9" ctl="52"  uri="/route/plugin/parameter S1 1 5"/>
+<Binding channel="9" ctl="53"  uri="/route/plugin/parameter S1 1 6"/>
+<Binding channel="9" ctl="54"  uri="/route/plugin/parameter S1 1 7"/>
+<Binding channel="9" ctl="55"  uri="/route/plugin/parameter S1 1 8"/>
+<Binding channel="9" ctl="58"  uri="/route/plugin/parameter S1 1 9"/>
+<Binding channel="9" ctl="59"  uri="/route/plugin/parameter S1 1 10"/>
+<Binding channel="9" ctl="60"  uri="/route/plugin/parameter S1 1 11"/>
+<Binding channel="9" ctl="61"  uri="/route/plugin/parameter S1 1 12"/>
+<Binding channel="9" ctl="62"  uri="/route/plugin/parameter S1 1 13"/>
+<Binding channel="9" ctl="63"  uri="/route/plugin/parameter S1 1 14"/>
+<Binding channel="9" ctl="64"  uri="/route/plugin/parameter S1 1 15"/>
+<Binding channel="9" ctl="65"  uri="/route/plugin/parameter S1 1 16"/>
+
+<Binding channel="10" ctl="48"  uri="/route/plugin/parameter S1 2 1"/>
+<Binding channel="10" ctl="49"  uri="/route/plugin/parameter S1 2 2"/>
+<Binding channel="10" ctl="50"  uri="/route/plugin/parameter S1 2 3"/>
+<Binding channel="10" ctl="51"  uri="/route/plugin/parameter S1 2 4"/>
+<Binding channel="10" ctl="52"  uri="/route/plugin/parameter S1 2 5"/>
+<Binding channel="10" ctl="53"  uri="/route/plugin/parameter S1 2 6"/>
+<Binding channel="10" ctl="54"  uri="/route/plugin/parameter S1 2 7"/>
+<Binding channel="10" ctl="55"  uri="/route/plugin/parameter S1 2 8"/>
+<Binding channel="10" ctl="58"  uri="/route/plugin/parameter S1 2 9"/>
+<Binding channel="10" ctl="59"  uri="/route/plugin/parameter S1 2 10"/>
+<Binding channel="10" ctl="60"  uri="/route/plugin/parameter S1 2 11"/>
+<Binding channel="10" ctl="61"  uri="/route/plugin/parameter S1 2 12"/>
+<Binding channel="10" ctl="62"  uri="/route/plugin/parameter S1 2 13"/>
+<Binding channel="10" ctl="63"  uri="/route/plugin/parameter S1 2 14"/>
+<Binding channel="10" ctl="64"  uri="/route/plugin/parameter S1 2 15"/>
+<Binding channel="10" ctl="65"  uri="/route/plugin/parameter S1 2 16"/>
+
+<Binding channel="11" ctl="48"  uri="/route/plugin/parameter S1 3 1"/>
+<Binding channel="11" ctl="49"  uri="/route/plugin/parameter S1 3 2"/>
+<Binding channel="11" ctl="50"  uri="/route/plugin/parameter S1 3 3"/>
+<Binding channel="11" ctl="51"  uri="/route/plugin/parameter S1 3 4"/>
+<Binding channel="11" ctl="52"  uri="/route/plugin/parameter S1 3 5"/>
+<Binding channel="11" ctl="53"  uri="/route/plugin/parameter S1 3 6"/>
+<Binding channel="11" ctl="54"  uri="/route/plugin/parameter S1 3 7"/>
+<Binding channel="11" ctl="55"  uri="/route/plugin/parameter S1 3 8"/>
+<Binding channel="11" ctl="58"  uri="/route/plugin/parameter S1 3 9"/>
+<Binding channel="11" ctl="59"  uri="/route/plugin/parameter S1 3 10"/>
+<Binding channel="11" ctl="60"  uri="/route/plugin/parameter S1 3 11"/>
+<Binding channel="11" ctl="61"  uri="/route/plugin/parameter S1 3 12"/>
+<Binding channel="11" ctl="62"  uri="/route/plugin/parameter S1 3 13"/>
+<Binding channel="11" ctl="63"  uri="/route/plugin/parameter S1 3 14"/>
+<Binding channel="11" ctl="64"  uri="/route/plugin/parameter S1 3 15"/>
+<Binding channel="11" ctl="65"  uri="/route/plugin/parameter S1 3 16"/>
+
+<Binding channel="12" ctl="48"  uri="/route/plugin/parameter S1 4 1"/>
+<Binding channel="12" ctl="49"  uri="/route/plugin/parameter S1 4 2"/>
+<Binding channel="12" ctl="50"  uri="/route/plugin/parameter S1 4 3"/>
+<Binding channel="12" ctl="51"  uri="/route/plugin/parameter S1 4 4"/>
+<Binding channel="12" ctl="52"  uri="/route/plugin/parameter S1 4 5"/>
+<Binding channel="12" ctl="53"  uri="/route/plugin/parameter S1 4 6"/>
+<Binding channel="12" ctl="54"  uri="/route/plugin/parameter S1 4 7"/>
+<Binding channel="12" ctl="55"  uri="/route/plugin/parameter S1 4 8"/>
+<Binding channel="12" ctl="58"  uri="/route/plugin/parameter S1 4 9"/>
+<Binding channel="12" ctl="59"  uri="/route/plugin/parameter S1 4 10"/>
+<Binding channel="12" ctl="60"  uri="/route/plugin/parameter S1 4 11"/>
+<Binding channel="12" ctl="61"  uri="/route/plugin/parameter S1 4 12"/>
+<Binding channel="12" ctl="62"  uri="/route/plugin/parameter S1 4 13"/>
+<Binding channel="12" ctl="63"  uri="/route/plugin/parameter S1 4 14"/>
+<Binding channel="12" ctl="64"  uri="/route/plugin/parameter S1 4 15"/>
+<Binding channel="12" ctl="65"  uri="/route/plugin/parameter S1 4 16"/>
+
+<Binding channel="13" ctl="48"  uri="/route/plugin/parameter S1 5 1"/>
+<Binding channel="13" ctl="49"  uri="/route/plugin/parameter S1 5 2"/>
+<Binding channel="13" ctl="50"  uri="/route/plugin/parameter S1 5 3"/>
+<Binding channel="13" ctl="51"  uri="/route/plugin/parameter S1 5 4"/>
+<Binding channel="13" ctl="52"  uri="/route/plugin/parameter S1 5 5"/>
+<Binding channel="13" ctl="53"  uri="/route/plugin/parameter S1 5 6"/>
+<Binding channel="13" ctl="54"  uri="/route/plugin/parameter S1 5 7"/>
+<Binding channel="13" ctl="55"  uri="/route/plugin/parameter S1 5 8"/>
+<Binding channel="13" ctl="58"  uri="/route/plugin/parameter S1 5 9"/>
+<Binding channel="13" ctl="59"  uri="/route/plugin/parameter S1 5 10"/>
+<Binding channel="13" ctl="60"  uri="/route/plugin/parameter S1 5 11"/>
+<Binding channel="13" ctl="61"  uri="/route/plugin/parameter S1 5 12"/>
+<Binding channel="13" ctl="62"  uri="/route/plugin/parameter S1 5 13"/>
+<Binding channel="13" ctl="63"  uri="/route/plugin/parameter S1 5 14"/>
+<Binding channel="13" ctl="64"  uri="/route/plugin/parameter S1 5 15"/>
+<Binding channel="13" ctl="65"  uri="/route/plugin/parameter S1 5 16"/>
+
+<Binding channel="14" ctl="48"  uri="/route/plugin/parameter S1 6 1"/>
+<Binding channel="14" ctl="49"  uri="/route/plugin/parameter S1 6 2"/>
+<Binding channel="14" ctl="50"  uri="/route/plugin/parameter S1 6 3"/>
+<Binding channel="14" ctl="51"  uri="/route/plugin/parameter S1 6 4"/>
+<Binding channel="14" ctl="52"  uri="/route/plugin/parameter S1 6 5"/>
+<Binding channel="14" ctl="53"  uri="/route/plugin/parameter S1 6 6"/>
+<Binding channel="14" ctl="54"  uri="/route/plugin/parameter S1 6 7"/>
+<Binding channel="14" ctl="55"  uri="/route/plugin/parameter S1 6 8"/>
+<Binding channel="14" ctl="58"  uri="/route/plugin/parameter S1 6 9"/>
+<Binding channel="14" ctl="59"  uri="/route/plugin/parameter S1 6 10"/>
+<Binding channel="14" ctl="60"  uri="/route/plugin/parameter S1 6 11"/>
+<Binding channel="14" ctl="61"  uri="/route/plugin/parameter S1 6 12"/>
+<Binding channel="14" ctl="62"  uri="/route/plugin/parameter S1 6 13"/>
+<Binding channel="14" ctl="63"  uri="/route/plugin/parameter S1 6 14"/>
+<Binding channel="14" ctl="64"  uri="/route/plugin/parameter S1 6 15"/>
+<Binding channel="14" ctl="65"  uri="/route/plugin/parameter S1 6 16"/>
+
+</ArdourMIDIBindings>
