@@ -1,4 +1,4 @@
-#N canvas 409 258 814 507.094 10;
+#N canvas 361 222 814 507.094 10;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array smr 24 float 6 #fcfcfc black;
 #X coords 0 2 24 0 200 60 1;
@@ -8,7 +8,7 @@
 #X obj 280 31 cnv 15 65 58 empty empty mute 20 12 0 12 -262081 -1 0
 ;
 #X obj 214 31 cnv 15 65 58 empty empty solo 20 12 0 12 -4033 -1 0;
-#N canvas 232 29 1195 814.094 notein 0;
+#N canvas 235 29 1195 837.094 notein 0;
 #X obj 478 265 expr $f1>=0 && $f1<=127;
 #X obj 33 47 pack f f f;
 #X obj 64 113 outlet;
@@ -31,7 +31,7 @@
 #X msg 35 464 1;
 #X msg 60 464 2;
 #X floatatom 86 511 5 0 0 0 - - chan, f 5;
-#X text 32 312 calculate the output channel for the FADER CTRL settings
+#X text 32 319 calculate the output channel for the FADER CTRL settings
 ;
 #X text 153 206 send/plugin number;
 #X text 22 207 FADER CTRL selection;
@@ -78,7 +78,7 @@
 #X obj 248 432 s sh;
 #X msg 210 387 0;
 #X obj 87 254 t f b;
-#N canvas 527 184 450 427.094 shifted-note 0;
+#N canvas 527 184 450 427.094 shifted-note 1;
 #X obj 16 17 inlet;
 #X obj 197 48 r shift;
 #X obj 92 94 t f f;
@@ -132,8 +132,8 @@
 #X msg 115 440 16;
 #X obj 362 219 t b f;
 #X obj 362 241 spigot;
-#X obj 362 263 tgl 15 0 select empty empty 17 7 0 10 -262144 -1 -1
-1 1;
+#X obj 362 263 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
 #X obj 585 381 t f;
 #X floatatom 35 358 5 0 0 0 - - -, f 5;
 #X obj 248 412 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
@@ -143,6 +143,17 @@
 #X obj 446 243 t f f;
 #X obj 446 286 spigot;
 #X floatatom 446 265 5 0 0 0 - - -, f 5;
+#X obj 389 408 sel 1 0;
+#X obj 438 430 r sh;
+#X obj 423 452 f;
+#X obj 389 430 t b b;
+#X obj 408 476 f;
+#X obj 404 500 r shift;
+#X obj 389 522 f;
+#X obj 362 283 t f f;
+#X obj 362 305 s select;
+#X text 369 390 determine SHIFT+SELECT;
+#X text 431 478 this remembers the previous sh status;
 #X connect 0 0 92 1;
 #X connect 1 0 4 0;
 #X connect 3 0 1 0;
@@ -244,6 +255,7 @@
 #X connect 83 0 84 0;
 #X connect 83 1 84 1;
 #X connect 84 0 85 0;
+#X connect 85 0 101 0;
 #X connect 86 0 74 0;
 #X connect 87 0 57 0;
 #X connect 88 0 63 0;
@@ -252,6 +264,17 @@
 #X connect 91 1 0 0;
 #X connect 92 0 68 0;
 #X connect 93 0 92 0;
+#X connect 94 0 97 0;
+#X connect 94 1 98 0;
+#X connect 95 0 96 1;
+#X connect 96 0 98 1;
+#X connect 97 0 100 0;
+#X connect 97 1 96 0;
+#X connect 98 0 88 0;
+#X connect 99 0 100 1;
+#X connect 100 0 88 0;
+#X connect 101 0 102 0;
+#X connect 101 1 94 0;
 #X restore 17 25 pd notein;
 #N canvas 474 29 810 853.094 ctlin 0;
 #X obj 20 31 pack f f f;
@@ -816,8 +839,8 @@ solo \, mute and rec \; ignore everything else, f 38;
 #X obj 186 205 closebang;
 #X obj 301 249 r select;
 #X floatatom 301 271 5 0 0 0 - - -, f 5;
-#X msg 301 292 144 \, 86 \, \$1;
-#X obj 301 314 midiout 3;
+#X msg 301 316 144 \, 86 \, \$1;
+#X obj 301 338 midiout 3;
 #X text 299 228 feedback for SELECT;
 #X msg 186 227 0;
 #X msg 71 115 71;
@@ -843,6 +866,9 @@ solo \, mute and rec \; ignore everything else, f 38;
 #X msg 555 262 1;
 #X obj 465 284 *;
 #X floatatom 465 306 5 0 0 0 - - -, f 5;
+#X obj 363 249 r sh;
+#X obj 363 271 + 1;
+#X obj 301 292 *;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 1 0 12 0;
@@ -878,7 +904,7 @@ solo \, mute and rec \; ignore everything else, f 38;
 #X connect 32 0 3 0;
 #X connect 32 0 38 0;
 #X connect 33 0 34 0;
-#X connect 34 0 35 0;
+#X connect 34 0 64 0;
 #X connect 35 0 36 0;
 #X connect 38 0 34 0;
 #X connect 39 0 26 0;
@@ -909,6 +935,10 @@ solo \, mute and rec \; ignore everything else, f 38;
 #X connect 59 0 60 0;
 #X connect 60 0 61 0;
 #X connect 61 0 47 1;
+#X connect 62 0 63 0;
+#X connect 63 0 64 1;
+#X connect 63 0 30 0;
+#X connect 64 0 35 0;
 #X restore 17 116 pd internal-feedback;
 #N canvas 2210 231 669 813.094 smr 0;
 #X obj 14 80 inlet;
@@ -957,11 +987,11 @@ a bank of toggles for the solo/mute/rec controls (pads in the lower
 #X obj 17 255 tgl 15 1 debug empty debug 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 220 130 vsl 15 64 0 127 0 0 empty f1 empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 5606 1;
 #X obj 240 130 vsl 15 64 0 127 0 0 empty f2 empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 260 130 vsl 15 64 0 127 0 0 empty f3 empty 0 -9 0 10 -262144
--1 -1 4415 1;
+-1 -1 0 1;
 #X obj 280 130 vsl 15 64 0 127 0 0 empty f4 empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 300 130 vsl 15 64 0 127 0 0 empty f5 empty 0 -9 0 10 -262144
@@ -971,7 +1001,7 @@ a bank of toggles for the solo/mute/rec controls (pads in the lower
 #X obj 340 130 vsl 15 64 0 127 0 0 empty f7 empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 360 130 vsl 15 64 0 127 0 0 empty f8 empty 0 -9 0 10 -262144
--1 -1 3224 1;
+-1 -1 0 1;
 #X obj 391 130 vsl 15 64 0 127 0 0 empty master empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 353 99 hradio 15 0 0 4 empty fader-ctrl empty 0 -8 0 10 -262144
@@ -990,7 +1020,7 @@ a bank of toggles for the solo/mute/rec controls (pads in the lower
 #X obj 423 99 tgl 15 0 empty fader-shift empty 17 7 0 10 -262144 -1
 -1 0 1;
 #X obj 220 206 vsl 15 64 0 127 0 0 empty f9 empty 0 -9 0 10 -262144
--1 -1 4266 1;
+-1 -1 0 1;
 #X obj 240 206 vsl 15 64 0 127 0 0 empty f10 empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 260 206 vsl 15 64 0 127 0 0 empty f11 empty 0 -9 0 10 -262144
@@ -1004,14 +1034,14 @@ a bank of toggles for the solo/mute/rec controls (pads in the lower
 #X obj 340 206 vsl 15 64 0 127 0 0 empty f15 empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 360 206 vsl 15 64 0 127 0 0 empty f16 empty 0 -9 0 10 -262144
--1 -1 4117 1;
+-1 -1 0 1;
 #X text 187 155 1-8;
 #X text 185 230 9-16;
 #X text 412 156 master;
 #X floatatom 122 255 5 0 0 0 - chan -, f 5;
 #X text 76 239 fader ctrl channel;
 #X obj 220 99 tgl 15 0 empty select SELECT 17 7 0 10 -262144 -1 -1
-1 1;
+0 1;
 #X obj 391 206 vsl 15 64 0 127 0 0 empty master2 empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X text 412 232 2nd bank;

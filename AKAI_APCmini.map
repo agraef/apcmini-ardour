@@ -41,7 +41,7 @@ you can use whichever row you find most convenient)
 are mapped to a reserved MIDI channel (#16 in the current implementation)
 which is *not* used in this map, so that the controllers can be freely
 assigned using Ardour's MIDI learn facility. This can also be combined with
-SHIFT+SELECT to give a 2nd bank of freely assignable controllers.
+SHIFT to give a 2nd bank of freely assignable controllers.
 
 A closer description of this map and setup instructions can be found in the
 accompanying documentation.
