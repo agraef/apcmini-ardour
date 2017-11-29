@@ -57,6 +57,13 @@ accompanying documentation.
 <Binding channel="1" note="84" function="toggle-rec-enable"/> <!-- record -->
 <Binding channel="1" note="85" function="loop-toggle"/> <!-- loop -->
 
+<!-- the shifted transport buttons (90-93) -->
+
+<Binding channel="1" note="90" function="transport-start"/>
+<Binding channel="1" note="91" function="transport-end"/>
+<Binding channel="1" note="92" action="Common/jump-backward-to-mark"/>
+<Binding channel="1" note="93" action="Common/jump-forward-to-mark"/>
+
 <!-- prev/next bank and track -->
 
 <Binding channel="1" note="64" function="prev-bank"/>

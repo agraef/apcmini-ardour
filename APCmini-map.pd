@@ -8,7 +8,7 @@
 #X obj 280 31 cnv 15 65 58 empty empty mute 20 12 0 12 -262081 -1 0
 ;
 #X obj 214 31 cnv 15 65 58 empty empty solo 20 12 0 12 -4033 -1 0;
-#N canvas 235 29 1195 837.094 notein 0;
+#N canvas 238 29 1195 860.094 notein 0;
 #X obj 478 265 expr $f1>=0 && $f1<=127;
 #X obj 33 47 pack f f f;
 #X obj 64 113 outlet;
@@ -53,12 +53,10 @@
 #X obj 585 20 unpack f f;
 #X obj 585 103 spigot;
 #X obj 642 47 > 0;
-#X text 585 194 other buttons;
-#X obj 585 264 spigot;
-#X obj 618 240 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 1
+#X obj 585 314 spigot;
+#X obj 618 290 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 446 341 noteout;
-#X obj 585 176 noteout;
 #X obj 33 89 route 33 17;
 #X obj 446 221 + 0;
 #X obj 277 247 tgl 15 0 shift empty empty 17 7 0 10 -262144 -1 -1 0
@@ -117,11 +115,8 @@
 #X obj 446 176 unpack f f f;
 #X obj 446 311 pack f f f;
 #X msg 446 154 \$1 \$2 1;
-#X obj 585 289 print A PD->DAW;
-#X msg 585 154 \$1 127 17;
-#X obj 585 125 t a f;
-#X obj 585 359 moses 82;
-#X obj 585 403 s reset-faders;
+#X obj 585 339 print A PD->DAW;
+#X obj 587 228 s reset-faders;
 #X obj 33 154 route 68 69 70 71 87 88 89 86 98;
 #X text 351 199 SELECT status;
 #X obj 115 338 r select;
@@ -134,7 +129,6 @@
 #X obj 362 241 spigot;
 #X obj 362 263 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 585 381 t f;
 #X floatatom 35 358 5 0 0 0 - - -, f 5;
 #X obj 248 412 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -154,28 +148,39 @@
 #X obj 362 305 s select;
 #X text 369 390 determine SHIFT+SELECT;
 #X text 431 478 this remembers the previous sh status;
-#X connect 0 0 92 1;
+#X obj 585 126 moses 82;
+#X obj 585 148 t f f;
+#X obj 585 190 noteout;
+#X msg 585 168 \$1 127 17;
+#X text 585 208 buttons 64-67;
+#X obj 674 148 +;
+#X obj 689 101 r shift;
+#X obj 689 123 * 8;
+#X obj 674 190 noteout;
+#X msg 674 168 \$1 127 17;
+#X text 674 208 buttons 82-85 \; these may be shifted;
+#X connect 0 0 86 1;
 #X connect 1 0 4 0;
 #X connect 3 0 1 0;
 #X connect 3 1 1 1;
 #X connect 3 2 1 2;
-#X connect 4 0 48 0;
-#X connect 5 0 62 0;
-#X connect 6 0 62 0;
-#X connect 7 0 65 0;
-#X connect 8 0 62 0;
+#X connect 4 0 46 0;
+#X connect 5 0 60 0;
+#X connect 6 0 60 0;
+#X connect 7 0 63 0;
+#X connect 8 0 60 0;
 #X connect 10 0 5 0;
 #X connect 10 0 11 0;
-#X connect 11 0 53 0;
-#X connect 12 0 53 0;
-#X connect 13 0 53 0;
-#X connect 15 0 87 0;
+#X connect 11 0 51 0;
+#X connect 12 0 51 0;
+#X connect 13 0 51 0;
+#X connect 15 0 81 0;
 #X connect 16 0 17 0;
-#X connect 17 0 57 0;
-#X connect 17 1 57 1;
+#X connect 17 0 55 0;
+#X connect 17 1 55 1;
 #X connect 18 0 19 0;
 #X connect 18 1 20 0;
-#X connect 18 2 58 0;
+#X connect 18 2 56 0;
 #X connect 19 0 21 0;
 #X connect 20 0 21 0;
 #X connect 26 0 14 0;
@@ -187,7 +192,7 @@
 #X connect 31 0 26 0;
 #X connect 31 1 30 0;
 #X connect 31 2 27 0;
-#X connect 33 0 69 0;
+#X connect 33 0 67 0;
 #X connect 34 0 33 1;
 #X connect 34 1 35 0;
 #X connect 35 0 36 1;
@@ -198,83 +203,88 @@
 #X connect 38 0 34 0;
 #X connect 40 0 41 0;
 #X connect 40 1 42 0;
-#X connect 41 0 72 0;
+#X connect 41 0 99 0;
 #X connect 42 0 41 1;
-#X connect 44 0 70 0;
-#X connect 45 0 44 1;
-#X connect 48 0 75 0;
-#X connect 48 1 2 0;
-#X connect 49 0 91 0;
+#X connect 43 0 68 0;
+#X connect 44 0 43 1;
+#X connect 46 0 70 0;
+#X connect 46 1 2 0;
+#X connect 47 0 85 0;
+#X connect 49 0 50 0;
+#X connect 50 0 51 1;
 #X connect 51 0 52 0;
-#X connect 52 0 53 1;
-#X connect 53 0 54 0;
-#X connect 55 0 50 0;
-#X connect 57 0 79 0;
-#X connect 58 0 59 0;
-#X connect 58 1 59 1;
-#X connect 59 0 21 0;
-#X connect 60 0 61 1;
-#X connect 61 0 88 0;
-#X connect 62 0 9 0;
-#X connect 62 1 61 0;
-#X connect 64 0 88 0;
-#X connect 65 0 9 0;
-#X connect 65 1 64 0;
-#X connect 66 0 31 0;
-#X connect 67 0 49 0;
-#X connect 67 1 68 1;
-#X connect 67 2 68 2;
-#X connect 68 0 44 0;
-#X connect 68 0 46 0;
-#X connect 69 0 67 0;
-#X connect 69 0 89 0;
-#X connect 71 0 47 0;
-#X connect 71 0 44 0;
-#X connect 72 0 71 0;
-#X connect 72 1 73 0;
-#X connect 73 0 86 0;
-#X connect 75 0 5 0;
-#X connect 75 1 6 0;
-#X connect 75 2 7 0;
-#X connect 75 3 8 0;
-#X connect 75 4 11 0;
-#X connect 75 5 12 0;
-#X connect 75 6 13 0;
-#X connect 75 7 83 0;
-#X connect 75 8 55 0;
-#X connect 75 9 66 0;
-#X connect 77 0 81 0;
-#X connect 78 0 79 1;
-#X connect 79 0 18 0;
-#X connect 80 0 82 0;
-#X connect 81 0 80 0;
-#X connect 81 0 57 0;
-#X connect 81 1 78 0;
-#X connect 81 2 80 1;
-#X connect 82 0 21 0;
-#X connect 83 0 84 0;
-#X connect 83 1 84 1;
-#X connect 84 0 85 0;
-#X connect 85 0 101 0;
-#X connect 86 0 74 0;
-#X connect 87 0 57 0;
-#X connect 88 0 63 0;
-#X connect 90 0 49 1;
-#X connect 91 0 93 0;
-#X connect 91 1 0 0;
-#X connect 92 0 68 0;
-#X connect 93 0 92 0;
-#X connect 94 0 97 0;
-#X connect 94 1 98 0;
-#X connect 95 0 96 1;
-#X connect 96 0 98 1;
-#X connect 97 0 100 0;
-#X connect 97 1 96 0;
-#X connect 98 0 88 0;
-#X connect 99 0 100 1;
-#X connect 100 0 88 0;
-#X connect 101 0 102 0;
-#X connect 101 1 94 0;
+#X connect 53 0 48 0;
+#X connect 55 0 74 0;
+#X connect 56 0 57 0;
+#X connect 56 1 57 1;
+#X connect 57 0 21 0;
+#X connect 58 0 59 1;
+#X connect 59 0 82 0;
+#X connect 60 0 9 0;
+#X connect 60 1 59 0;
+#X connect 62 0 82 0;
+#X connect 63 0 9 0;
+#X connect 63 1 62 0;
+#X connect 64 0 31 0;
+#X connect 65 0 47 0;
+#X connect 65 1 66 1;
+#X connect 65 2 66 2;
+#X connect 66 0 43 0;
+#X connect 66 0 45 0;
+#X connect 67 0 65 0;
+#X connect 67 0 83 0;
+#X connect 70 0 5 0;
+#X connect 70 1 6 0;
+#X connect 70 2 7 0;
+#X connect 70 3 8 0;
+#X connect 70 4 11 0;
+#X connect 70 5 12 0;
+#X connect 70 6 13 0;
+#X connect 70 7 78 0;
+#X connect 70 8 53 0;
+#X connect 70 9 64 0;
+#X connect 72 0 76 0;
+#X connect 73 0 74 1;
+#X connect 74 0 18 0;
+#X connect 75 0 77 0;
+#X connect 76 0 75 0;
+#X connect 76 0 55 0;
+#X connect 76 1 73 0;
+#X connect 76 2 75 1;
+#X connect 77 0 21 0;
+#X connect 78 0 79 0;
+#X connect 78 1 79 1;
+#X connect 79 0 80 0;
+#X connect 80 0 95 0;
+#X connect 81 0 55 0;
+#X connect 82 0 61 0;
+#X connect 84 0 47 1;
+#X connect 85 0 87 0;
+#X connect 85 1 0 0;
+#X connect 86 0 66 0;
+#X connect 87 0 86 0;
+#X connect 88 0 91 0;
+#X connect 88 1 92 0;
+#X connect 89 0 90 1;
+#X connect 90 0 92 1;
+#X connect 91 0 94 0;
+#X connect 91 1 90 0;
+#X connect 92 0 82 0;
+#X connect 93 0 94 1;
+#X connect 94 0 82 0;
+#X connect 95 0 96 0;
+#X connect 95 1 88 0;
+#X connect 99 0 100 0;
+#X connect 99 1 104 0;
+#X connect 100 0 102 0;
+#X connect 100 1 69 0;
+#X connect 102 0 101 0;
+#X connect 102 0 43 0;
+#X connect 104 0 108 0;
+#X connect 105 0 106 0;
+#X connect 106 0 104 1;
+#X connect 108 0 107 0;
+#X connect 108 0 43 0;
 #X restore 17 25 pd notein;
 #N canvas 474 29 810 853.094 ctlin 0;
 #X obj 20 31 pack f f f;
@@ -291,7 +301,7 @@
 #X obj 93 429 ctlout;
 #X obj 78 332 loadbang;
 #X obj 262 158 spigot;
-#X obj 295 134 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 1
+#X obj 295 134 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 96 308 +;
 #X obj 111 260 r sh;
@@ -304,7 +314,7 @@
 #X text 268 22 messages from the DAW;
 #X text 19 99 messages from APCmini;
 #X obj 300 407 spigot;
-#X obj 333 383 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 1
+#X obj 333 383 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 95 31 r switch;
 #N canvas 375 219 853 414.094 faders 0;
@@ -766,7 +776,7 @@ solo \, mute and rec \; ignore everything else, f 38;
 #X obj 65 318 t a a;
 #X obj 168 370 s smr;
 #X obj 184 72 spigot;
-#X obj 217 48 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 1
+#X obj 217 48 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X text 93 17 Feedback from DAW (only note input);
 #X obj 65 370 midiout 3;
@@ -955,7 +965,7 @@ solo \, mute and rec \; ignore everything else, f 38;
 #X obj 73 393 midiout 2;
 #X msg 73 371 144 \, \$1 \, 127;
 #X obj 233 293 spigot;
-#X obj 266 269 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 1
+#X obj 266 269 tgl 15 0 empty debug empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X text 12 23 Using an array for storage \, this subpatch implements
 a bank of toggles for the solo/mute/rec controls (pads in the lower
@@ -984,26 +994,26 @@ a bank of toggles for the solo/mute/rec controls (pads in the lower
 #X connect 16 1 1 0;
 #X connect 17 0 13 0;
 #X restore 68 59 pd smr;
-#X obj 17 255 tgl 15 1 debug empty debug 17 7 0 10 -262144 -1 -1 1
+#X obj 17 255 tgl 15 1 debug empty debug 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 220 130 vsl 15 64 0 127 0 0 empty f1 empty 0 -9 0 10 -262144
--1 -1 5606 1;
+-1 -1 4911 1;
 #X obj 240 130 vsl 15 64 0 127 0 0 empty f2 empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 4911 1;
 #X obj 260 130 vsl 15 64 0 127 0 0 empty f3 empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 4911 1;
 #X obj 280 130 vsl 15 64 0 127 0 0 empty f4 empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 4911 1;
 #X obj 300 130 vsl 15 64 0 127 0 0 empty f5 empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 4911 1;
 #X obj 320 130 vsl 15 64 0 127 0 0 empty f6 empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 4911 1;
 #X obj 340 130 vsl 15 64 0 127 0 0 empty f7 empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 4911 1;
 #X obj 360 130 vsl 15 64 0 127 0 0 empty f8 empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 4911 1;
 #X obj 391 130 vsl 15 64 0 127 0 0 empty master empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 4911 1;
 #X obj 353 99 hradio 15 0 0 4 empty fader-ctrl empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 423 44 vradio 15 0 0 3 empty send-select empty 0 -8 0 10 -262144
