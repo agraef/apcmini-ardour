@@ -1,4 +1,4 @@
-#N canvas 361 222 814 507.094 10;
+#N canvas 415 207 814 507.094 10;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array smr 24 float 6 #fcfcfc black;
 #X coords 0 2 24 0 200 60 1;
@@ -78,7 +78,7 @@
 #X obj 248 432 s sh;
 #X msg 210 387 0;
 #X obj 87 254 t f b;
-#N canvas 527 184 450 427.094 shifted-note 1;
+#N canvas 527 184 450 427.094 shifted-note 0;
 #X obj 16 17 inlet;
 #X obj 197 48 r shift;
 #X obj 92 94 t f f;
